@@ -4,12 +4,14 @@
     <input
       ref="inputRef"
       v-model="inputValue"
+      @input="inputValue = inputValue.toLowerCase()"
       @keydown.enter="submit"
       @keydown.up.prevent="navigateHistory(1)"
       @keydown.down.prevent="navigateHistory(-1)"
       @keydown.tab.prevent="autocomplete"
       autocomplete="off"
       spellcheck="false"
+      autocapitalize="none"
       autofocus
     />
   </div>
@@ -33,6 +35,10 @@ function submit() {
   executeCommand(inputValue.value)
   inputValue.value = ''
   historyIndex.value = -1
+  // Dismiss the virtual keyboard on mobile after submitting
+  if (window.innerWidth <= 640) {
+    inputRef.value?.blur()
+  }
 }
 
 function navigateHistory(dir) {
@@ -93,5 +99,6 @@ input {
   font-size: inherit;
   caret-color: var(--cursor);
   min-width: 0;
+  text-transform: lowercase;
 }
 </style>

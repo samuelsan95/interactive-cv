@@ -19,6 +19,8 @@ const ASCII_ART = [
 export function getWelcomeLines(t) {
   return [
     ...ASCII_ART.map(text => ({ type: 'accent', text, banner: true })),
+    // Mobile replacement: shown only on small screens instead of the ASCII art
+    { type: 'accent', text: '  [ SAMUEL SÁNCHEZ ]', mobileOnly: true },
     { type: 'output', text: '' },
     { type: 'output', text: `  ${t.role_desc.padEnd(10)}│ ${t.role}` },
     { type: 'output', text: `  ${t.location_desc.padEnd(10)}│ ${t.location}` },

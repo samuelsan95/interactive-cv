@@ -1,5 +1,5 @@
 <template>
-  <div class="line" :class="[type, { banner }]">
+  <div class="line" :class="[type, { banner, 'mobile-only': mobileOnly }]">
     <span v-if="type === 'input'" class="prompt">{{ PROMPT }}&nbsp;</span>
     <span class="text">{{ text }}</span>
     <a v-if="href" class="link" :href="href" target="_blank" rel="noopener noreferrer">{{ linkText }}</a>
@@ -10,11 +10,12 @@
 import { PROMPT } from '../composables/useTerminal.js'
 
 defineProps({
-  type:     { type: String,  default: 'output' }, // output | input | error | accent | muted
-  text:     { type: String,  default: '' },
-  href:     { type: String,  default: null },      // if set, renders a clickable link after the text
-  linkText: { type: String,  default: '' },        // display text for the link
-  banner:   { type: Boolean, default: false },     // ASCII art lines — hidden on small screens
+  type:       { type: String,  default: 'output' }, // output | input | error | accent | muted
+  text:       { type: String,  default: '' },
+  href:       { type: String,  default: null },      // if set, renders a clickable link after the text
+  linkText:   { type: String,  default: '' },        // display text for the link
+  banner:     { type: Boolean, default: false },     // ASCII art — hidden on mobile
+  mobileOnly: { type: Boolean, default: false },     // shown only on mobile (mobile title replacement)
 })
 </script>
 
@@ -43,10 +44,19 @@ defineProps({
   text-decoration: underline;
 }
 
-/* Hide the wide ASCII art banner on small screens */
+/* Mobile-only lines are hidden on desktop */
+.mobile-only {
+  display: none;
+}
+
 @media (max-width: 640px) {
+  /* Hide the wide ASCII art, show the compact title instead */
   .banner {
     display: none;
+  }
+
+  .mobile-only {
+    display: block;
   }
 
   /* Hanging indent: wrapped lines align with the first character, not column 0 */

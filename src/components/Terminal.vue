@@ -9,6 +9,7 @@
         :type="line.type"
         :text="line.text"
         :banner="line.banner"
+        :mobile-only="line.mobileOnly"
       />
 
       <!-- Command interaction history -->
