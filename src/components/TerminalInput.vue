@@ -1,0 +1,76 @@
+<template>
+  <div class="input-line">
+    <span class="prompt">{{ PROMPT }}&nbsp;</span>
+    <input
+      ref="inputRef"
+      v-model="inputValue"
+      @keydown.enter="submit"
+      @keydown.up.prevent="navigateHistory(1)"
+      @keydown.down.prevent="navigateHistory(-1)"
+      autocomplete="off"
+      spellcheck="false"
+      autofocus
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useTerminal, PROMPT } from '../composables/useTerminal.js'
+
+const { commandHistory, executeCommand } = useTerminal()
+
+const inputRef = ref(null)
+const inputValue = ref('')
+const historyIndex = ref(-1)
+
+function submit() {
+  executeCommand(inputValue.value)
+  inputValue.value = ''
+  historyIndex.value = -1
+}
+
+function navigateHistory(dir) {
+  const len = commandHistory.value.length
+  if (len === 0) return
+
+  const next = historyIndex.value + dir
+  if (next < -1 || next >= len) return
+
+  historyIndex.value = next
+  inputValue.value = next === -1 ? '' : commandHistory.value[next]
+}
+
+function focus() {
+  inputRef.value?.focus()
+}
+
+onMounted(focus)
+defineExpose({ focus })
+</script>
+
+<style scoped>
+.input-line {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.prompt {
+  color: var(--prompt);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: inherit;
+  caret-color: var(--cursor);
+  min-width: 0;
+}
+</style>
