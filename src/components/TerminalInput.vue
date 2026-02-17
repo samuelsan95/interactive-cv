@@ -7,6 +7,7 @@
       @keydown.enter="submit"
       @keydown.up.prevent="navigateHistory(1)"
       @keydown.down.prevent="navigateHistory(-1)"
+      @keydown.tab.prevent="autocomplete"
       autocomplete="off"
       spellcheck="false"
       autofocus
@@ -17,12 +18,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useTerminal, PROMPT } from '../composables/useTerminal.js'
+import { commands } from '../commands/index.js'
 
-const { commandHistory, executeCommand } = useTerminal()
+const { commandHistory, executeCommand, addLine } = useTerminal()
 
 const inputRef = ref(null)
 const inputValue = ref('')
 const historyIndex = ref(-1)
+
+// All completable command names (commands + built-in clear)
+const COMPLETABLE = [...Object.keys(commands), 'clear'].sort()
 
 function submit() {
   executeCommand(inputValue.value)
@@ -39,6 +44,22 @@ function navigateHistory(dir) {
 
   historyIndex.value = next
   inputValue.value = next === -1 ? '' : commandHistory.value[next]
+}
+
+function autocomplete() {
+  const val = inputValue.value
+  if (!val.trim()) return
+
+  const matches = COMPLETABLE.filter(cmd => cmd.startsWith(val.trim()))
+
+  if (matches.length === 1) {
+    // Unique match: complete the input
+    inputValue.value = matches[0]
+  } else if (matches.length > 1) {
+    // Multiple matches: echo current input then list options (bash-style)
+    addLine({ type: 'input', text: val })
+    addLine({ type: 'muted', text: '  ' + matches.join('    ') })
+  }
 }
 
 function focus() {
