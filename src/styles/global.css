@@ -1,3 +1,14 @@
+/* Default values (retro theme). useTheme overrides these on load. */
+:root {
+  --bg: #0d0d0d;
+  --fg: #33ff33;
+  --prompt: #00cc00;
+  --accent: #66ff66;
+  --error: #ff4444;
+  --muted: #1a661a;
+  --cursor: #33ff33;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +22,10 @@ html, body, #app {
 }
 
 body {
+  background: var(--bg);
+  color: var(--fg);
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
+  transition: background 0.2s ease, color 0.2s ease;
 }
