@@ -1,9 +1,10 @@
 import { ref } from 'vue'
+import { useI18n } from './useI18n.js'
+import { useTheme } from './useTheme.js'
+import { commands } from '../commands/index.js'
 
 export const PROMPT = 'visitor@cv:~$'
 
-// ASCII art for "SAMUEL" + info block — language-agnostic lines go here,
-// translated lines are injected via getWelcomeLines(t)
 const ASCII_ART = [
   '  ███████╗ █████╗ ███╗   ███╗██╗   ██╗███████╗██╗     ',
   '  ██╔════╝██╔══██╗████╗ ████║██║   ██║██╔════╝██║     ',
@@ -19,9 +20,9 @@ export function getWelcomeLines(t) {
   return [
     ...ASCII_ART.map(text => ({ type: 'accent', text })),
     { type: 'output', text: '' },
-    { type: 'output', text: `  ${t.role_desc}: ${t.role}` },
-    { type: 'output', text: `  ${t.location_desc}: ${t.location}` },
-    { type: 'output', text: `  ${t.status_desc}: ${t.status}` },
+    { type: 'output', text: `  ${t.role_desc.padEnd(10)}│ ${t.role}` },
+    { type: 'output', text: `  ${t.location_desc.padEnd(10)}│ ${t.location}` },
+    { type: 'output', text: `  ${t.status_desc.padEnd(10)}│ ${t.status}` },
     { type: 'output', text: '' },
     { type: 'muted',  text: `  ${t.hint}` },
     { type: 'output', text: '' },
@@ -41,22 +42,43 @@ function clearHistory() {
 }
 
 function executeCommand(raw) {
-  const input = raw.trim()
+  const { t, locale, setLocale, supportedLocales } = useI18n()
+  const { setTheme, themes, activeThemeId } = useTheme()
 
-  addLine({ type: 'input', text: input })
+  const trimmed = raw.trim()
+  const [cmd, ...args] = trimmed.split(/\s+/)
 
-  if (!input) return
+  addLine({ type: 'input', text: trimmed })
 
-  commandHistory.value.unshift(input)
+  if (!trimmed) return
 
-  // Command router — handlers will be added in the next step
-  switch (input.toLowerCase()) {
-    case 'clear':
-      clearHistory()
-      break
-    default:
-      addLine({ type: 'error', text: `Command not found: "${input}". Type "help" for available commands.` })
+  commandHistory.value.unshift(trimmed)
+
+  if (cmd === 'clear') {
+    clearHistory()
+    return
   }
+
+  const handler = commands[cmd]
+
+  if (!handler) {
+    addLine({ type: 'error', text: `  ${t.value.cmd_not_found}` })
+    return
+  }
+
+  const ctx = {
+    t:                t.value,
+    locale:           locale.value,
+    args,
+    setTheme,
+    setLocale,
+    themes,
+    activeThemeId:    activeThemeId.value,
+    supportedLocales,
+  }
+
+  const lines = handler(ctx)
+  if (Array.isArray(lines)) lines.forEach(addLine)
 }
 
 export function useTerminal() {
