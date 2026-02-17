@@ -21,6 +21,13 @@ html, body, #app {
   overflow: hidden;
 }
 
+/* Use dynamic viewport height so the terminal shrinks when the mobile keyboard opens */
+@supports (height: 100dvh) {
+  html, body, #app {
+    height: 100dvh;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
@@ -28,4 +35,10 @@ body {
   font-size: 14px;
   line-height: 1.5;
   transition: background 0.2s ease, color 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 13px;
+  }
 }

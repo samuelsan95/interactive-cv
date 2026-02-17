@@ -18,7 +18,7 @@ const ASCII_ART = [
 // Called from Terminal.vue as a computed so it reacts to locale changes.
 export function getWelcomeLines(t) {
   return [
-    ...ASCII_ART.map(text => ({ type: 'accent', text })),
+    ...ASCII_ART.map(text => ({ type: 'accent', text, banner: true })),
     { type: 'output', text: '' },
     { type: 'output', text: `  ${t.role_desc.padEnd(10)}│ ${t.role}` },
     { type: 'output', text: `  ${t.location_desc.padEnd(10)}│ ${t.location}` },
@@ -75,6 +75,7 @@ function executeCommand(raw) {
     themes,
     activeThemeId:    activeThemeId.value,
     supportedLocales,
+    isMobile:         window.innerWidth <= 640,
   }
 
   const lines = handler(ctx)

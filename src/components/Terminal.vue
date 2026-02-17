@@ -8,6 +8,7 @@
         :key="`w${i}`"
         :type="line.type"
         :text="line.text"
+        :banner="line.banner"
       />
 
       <!-- Command interaction history -->
@@ -46,12 +47,33 @@ function focusInput() {
   inputRef.value?.focus()
 }
 
-// Auto-scroll to bottom whenever history grows
+// Track history length between watch triggers (arrays are mutated in place,
+// so oldVal === newVal in a deep watch)
+let prevHistoryLen = 0
+
 watch(history, async () => {
   await nextTick()
-  if (historyRef.value) {
-    historyRef.value.scrollTop = historyRef.value.scrollHeight
+  if (!historyRef.value) return
+
+  const currentLen = history.value.length
+  const isMobile = window.innerWidth <= 640
+
+  if (isMobile && currentLen > prevHistoryLen) {
+    // On mobile: scroll to the first output line of the new command.
+    // DOM order: welcome lines first, then history lines.
+    // Skip the echoed input line (+1) so the section header is at the top.
+    const firstOutputIndex = welcomeLines.value.length + prevHistoryLen + 1
+    const child = historyRef.value.children[firstOutputIndex]
+    if (child) {
+      historyRef.value.scrollTop = child.offsetTop
+      prevHistoryLen = currentLen
+      return
+    }
   }
+
+  // Desktop (or clear command): scroll to the bottom as usual
+  historyRef.value.scrollTop = historyRef.value.scrollHeight
+  prevHistoryLen = currentLen
 }, { deep: true })
 </script>
 
@@ -65,6 +87,12 @@ watch(history, async () => {
   background: var(--bg);
   color: var(--fg);
   cursor: text;
+}
+
+@media (max-width: 640px) {
+  .terminal {
+    padding: 1rem 0.75rem;
+  }
 }
 
 .history {
