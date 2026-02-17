@@ -5,6 +5,14 @@
 
 export const cv = {
 
+  contact: {
+    email:    'sanchezlopezsamuel@gmail.com',
+    github:   'https://github.com/samuelsan95',
+    linkedin: 'https://www.linkedin.com/in/samuel-sanchez-lopez/',
+    medium:  'https://samuelsan95.medium.com/',
+  },
+
+
   about: {
     en: [
       'Full Stack Developer based in Fuenlabrada, Madrid, Spain.',

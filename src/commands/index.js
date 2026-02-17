@@ -1,4 +1,5 @@
 import { helpCommand }       from './help.js'
+import { contactCommand }    from './contact.js'
 import { aboutCommand }      from './about.js'
 import { experienceCommand } from './experience.js'
 import { skillsCommand }     from './skills.js'
@@ -9,12 +10,13 @@ import { langCommand }       from './lang.js'
 export const commands = {
   help:       helpCommand,
   about:      aboutCommand,
-  whoami:     aboutCommand,    // alias
+  whoami:     aboutCommand,
   experience: experienceCommand,
-  exp:        experienceCommand, // alias
+  exp:        experienceCommand,
   skills:     skillsCommand,
   education:  educationCommand,
-  edu:        educationCommand,  // alias
+  edu:        educationCommand,
   theme:      themeCommand,
   lang:       langCommand,
+  contact:    contactCommand,
 }

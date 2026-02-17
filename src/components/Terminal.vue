@@ -16,6 +16,8 @@
         :key="`h${i}`"
         :type="line.type"
         :text="line.text"
+        :href="line.href"
+        :link-text="line.linkText"
       />
 
     </div>

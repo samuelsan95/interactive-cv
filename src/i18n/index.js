@@ -20,6 +20,7 @@ export const messages = {
     help_theme_list:  'List available themes',
     help_theme_set:   'Change terminal theme',
     help_lang:        'Change language  (en | es)',
+    help_contact:     'Contact information',
     help_clear:       'Clear the terminal',
 
     // Theme
@@ -39,6 +40,7 @@ export const messages = {
     section_experience: 'Work Experience',
     section_skills:     'Skills',
     section_education:  'Education',
+    section_contact:    'Contact',
 
     // Labels
     label_present: 'Present',
@@ -66,6 +68,7 @@ export const messages = {
     help_theme_list:  'Listar temas disponibles',
     help_theme_set:   'Cambiar el tema del terminal',
     help_lang:        'Cambiar el idioma  (en | es)',
+    help_contact:     'Información de contacto',
     help_clear:       'Limpiar el terminal',
 
     // Theme
@@ -85,6 +88,7 @@ export const messages = {
     section_experience: 'Experiencia Laboral',
     section_skills:     'Habilidades',
     section_education:  'Formación',
+    section_contact:    'Contacto',
 
     // Labels
     label_present: 'Presente',

@@ -9,6 +9,7 @@ export function helpCommand({ t }) {
     { type: 'output', text: `  ${pad('experience',      18)} ${t.help_experience}` },
     { type: 'output', text: `  ${pad('skills',          18)} ${t.help_skills}` },
     { type: 'output', text: `  ${pad('education',       18)} ${t.help_education}` },
+    { type: 'output', text: `  ${pad('contact',         18)} ${t.help_contact}` },
     { type: 'output', text: '' },
     { type: 'output', text: `  ${pad('theme list',      18)} ${t.help_theme_list}` },
     { type: 'output', text: `  ${pad('theme set <name>',18)} ${t.help_theme_set}` },
