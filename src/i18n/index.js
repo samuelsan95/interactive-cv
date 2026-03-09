@@ -20,6 +20,7 @@ export const messages = {
     help_theme_list:  'List available themes',
     help_theme_set:   'Change terminal theme',
     help_lang:        'Change language  (en | es)',
+    help_projects:    'Personal projects',
     help_contact:     'Contact information',
     help_clear:       'Clear the terminal',
 
@@ -40,6 +41,8 @@ export const messages = {
     section_experience: 'Work Experience',
     section_skills:     'Skills',
     section_education:  'Education',
+    section_projects:   'Projects',
+    cmd_repo_desc:      'Check the source code of this interactive CV on GitHub:',
     section_contact:    'Contact',
 
     // Labels
@@ -68,6 +71,7 @@ export const messages = {
     help_theme_list:  'Listar temas disponibles',
     help_theme_set:   'Cambiar el tema del terminal',
     help_lang:        'Cambiar el idioma  (en | es)',
+    help_projects:    'Proyectos personales',
     help_contact:     'Información de contacto',
     help_clear:       'Limpiar el terminal',
 
@@ -88,6 +92,8 @@ export const messages = {
     section_experience: 'Experiencia Laboral',
     section_skills:     'Habilidades',
     section_education:  'Formación',
+    section_projects:   'Proyectos',
+    cmd_repo_desc:      'Echa un vistazo al código fuente de este CV interactivo en GitHub:',
     section_contact:    'Contacto',
 
     // Labels

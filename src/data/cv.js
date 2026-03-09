@@ -184,4 +184,42 @@ export const cv = {
     },
   ],
 
+  projects: [
+    {
+      name: 'interactive-cv',
+      description: {
+        en: 'Personal CV with an interactive terminal interface built with Vue.js.',
+        es: 'CV personal con interfaz de terminal interactiva construido con Vue.js.',
+      },
+      url: 'https://github.com/samuelsan95/interactive-cv',
+      tech: ['Vue.js', 'Vite', 'JavaScript'],
+    },
+    {
+      name: 'mcp-resume-news',
+      description: {
+        en: 'Model Context Protocol (MCP) server for resume news.',
+        es: 'Servidor Model Context Protocol (MCP) para noticias de CVs.',
+      },
+      url: 'https://github.com/samuelsan95/mcp-resume-news',
+      tech: ['TypeScript', 'MCP'],
+    },
+    {
+      name: 'samuTokens-DApp',
+      description: {
+        en: 'Decentralized application (DApp) built with Ethereum, Solidity and Angular.',
+        es: 'Aplicación descentralizada (DApp) construida con Ethereum, Solidity y Angular.',
+      },
+      url: 'https://github.com/samuelsan95/samuTokens-DApp',
+      tech: ['Solidity', 'Ethereum', 'Angular'],
+    },
+    {
+      name: 'testing_with_samuelsan',
+      description: {
+        en: 'Project to teach unit testing concepts using Jest in JavaScript.',
+        es: 'Proyecto para enseñar conceptos de pruebas unitarias usando Jest en JavaScript.',
+      },
+      url: 'https://github.com/samuelsan95/testing_with_samuelsan',
+      tech: ['Jest', 'JavaScript', 'Testing'],
+    }
+  ],
 }
