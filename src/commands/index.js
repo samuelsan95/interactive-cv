@@ -7,6 +7,7 @@ import { skillsCommand }     from './skills.js'
 import { educationCommand }  from './education.js'
 import { themeCommand }      from './theme.js'
 import { langCommand }       from './lang.js'
+import { projectsCommand }   from './projects.js'
 
 export const commands = {
   help:       helpCommand,
@@ -19,6 +20,8 @@ export const commands = {
   edu:        educationCommand,
   theme:      themeCommand,
   lang:       langCommand,
+  projects:   projectsCommand,
+  proj:       projectsCommand,
   contact:    contactCommand,
   // Easter eggs — not listed in help
   sudo:       sudoCommand,

@@ -7,6 +7,7 @@ function commandEntries(t) {
     { cmd: 'experience',       desc: t.help_experience },
     { cmd: 'skills',           desc: t.help_skills },
     { cmd: 'education',        desc: t.help_education },
+    { cmd: 'projects',         desc: t.help_projects },
     { cmd: 'contact',          desc: t.help_contact },
     null, // separator
     { cmd: 'theme list',       desc: t.help_theme_list },
